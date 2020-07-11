@@ -1,0 +1,21 @@
+{
+  "name": "fractal-tree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.js | terser > public/js/bundle.js",
+    "build-dev": "rollup -c rollup.config.js -o public/js/bundle.js -w"
+  },
+  "author": "Mimi <stevenjoezhang@gmail.com> (https://zhangshuqiao.org)",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "chalk": "^4.1.0",
+    "express": "^4.17.1",
+    "gl-matrix": "^3.3.0",
+    "rollup": "^2.21.0",
+    "terser": "^4.8.0",
+    "three": "^0.118.3"
+  }
+}
