@@ -15,37 +15,19 @@
  *  GNU General Public License for more details.
  */
 
-const express = require("express");
-const path = require("path");
-const os = require("os");
-const chalk = require("chalk");
-const { exec } = require("child_process");
+import MiServer from "mimi-server";
 
-const app = express();
+import { exec } from "child_process";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-var config = require("./config.json");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const config = JSON.parse(fs.readFileSync("./config.json"));
 
 config.dev ? exec("npm run build-dev") : exec("npm run build");
-if (!(config.port >= 0 && config.port < 65536 && config.port % 1 === 0)) {
-    console.error("[ERROR] `port` argument must be an integer >= 0 and < 65536. Default value will be used.");
-    config.port = 8080;
-}
-var port = process.env.PORT || config.port;
 
-const http = require("http");
-const server = http.createServer(app);
-
-server.listen(port, () => {
-    console.log(chalk.yellow("Server available on:"));
-    const ifaces = os.networkInterfaces();
-    Object.keys(ifaces).forEach(dev => {
-        ifaces[dev].forEach(details => {
-            if (details.family === 'IPv4') {
-                console.log((`  http://${details.address}:${chalk.green(port.toString())}`));
-            }
-        });
-    });
-    console.log("Hit CTRL-C to stop the server");
+new MiServer({
+    port: process.env.PORT || config.port,
+    static: path.join(__dirname, "public")
 });
-//Routing
-app.use(express.static(path.join(__dirname, "public")));
