@@ -5,6 +5,7 @@
 import * as THREE from 'Three';
 import { vec3, mat4 } from './gl-matrix';
 import { MatrixStack } from './matrixStack';
+import { Geometry, Face3 } from 'Three/examples/jsm/deprecated/Geometry';
 
 function degToRad(degrees) {
     return degrees * Math.PI / 180;
@@ -74,7 +75,7 @@ function TreeGeometry(divergenceAngle1,
         maxIter);
 
     const radial = radialSegments;
-    const geometry = new THREE.Geometry();
+    const geometry = new Geometry();
     let verticesNum = 0;
 
     this.treeLSystem.root.traverse(node => {
@@ -102,11 +103,11 @@ function TreeGeometry(divergenceAngle1,
                     node.position[1] + p[1],
                     node.position[2] + p[2]));
 
-                geometry.faces.push(new THREE.Face3(node.parent.firstIndex + i,
+                geometry.faces.push(new Face3(node.parent.firstIndex + i,
                     node.firstIndex + i,
                     node.parent.firstIndex + (i + 1) % radial));
 
-                geometry.faces.push(new THREE.Face3(node.parent.firstIndex + (i + 1) % radial,
+                geometry.faces.push(new Face3(node.parent.firstIndex + (i + 1) % radial,
                     node.firstIndex + i,
                     node.firstIndex + (i + 1) % radial));
 
@@ -141,7 +142,7 @@ function TreeGeometry(divergenceAngle1,
     geometry.computeFaceNormals();
     geometry.computeVertexNormals();
 
-    this.geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+    this.geometry = geometry.toBufferGeometry();
 }
 
 class TreeNode {

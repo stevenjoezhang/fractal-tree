@@ -12,11 +12,11 @@
   "author": "Mimi <stevenjoezhang@gmail.com> (https://zhangshuqiao.org)",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "gl-matrix": "^3.3.0",
     "mimi-server": "0.0.1",
-    "rollup": "^2.21.0",
-    "terser": "^4.8.0",
-    "three": "^0.118.3"
+    "rollup": "^2.52.3",
+    "terser": "^5.7.1",
+    "three": "^0.129.0"
   }
 }
